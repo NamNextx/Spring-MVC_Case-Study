@@ -12,7 +12,8 @@ public class InoteServiceImpl implements IinoteService {
     private iNoteRepository iNoteRepository;
     @Override
     public List<Note> findAll() {
-        return (List<Note>) iNoteRepository.findAll();
+        Iterable<Note> result = iNoteRepository.findAll();
+        return (List<Note>) result;
     }
 
     @Override

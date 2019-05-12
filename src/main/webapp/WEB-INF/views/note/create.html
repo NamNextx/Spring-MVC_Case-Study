@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Create Note</title>
+    <script src="static/js/ajax.js"></script>
+</head>
+<body>
+    <h1>Create one note</h1>
+    <a href="home">Back to home</a>
+    <form th:action="@{/create-new-note}" method="post" th:object="${note}" >
+        <table border="1">
+            <tr>
+                <td>title</td>
+                <td><input type="text" th:field="*{title}" ></td>
+            </tr>
+            <tr>
+                <td>Content</td>
+                <td>
+                    <textarea th:field="*{content}"></textarea>
+                </td>
+            </tr>
+            <tr>
+                <td>Category</td>
+                <td>
+                    <select th:field="*{category}">
+                        <option th:each="p: ${categorys}" th:value="${p.id}" th:text="${p.name}"></option>
+                    </select>
+
+                </td>
+            </tr>
+        </table>
+        <input type="submit" value="Create new note">
+    </form>
+</body>
+</html>

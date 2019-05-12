@@ -1,5 +1,7 @@
 package com.codegym.cms.model;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import javax.persistence.*;
 
 @Entity
@@ -13,6 +15,7 @@ public class Note {
 
     @ManyToOne
     @JoinColumn(name = "category_id")
+    @JsonManagedReference
     private Category category;
 
     public Note() {

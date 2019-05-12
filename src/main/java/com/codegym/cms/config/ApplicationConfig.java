@@ -7,6 +7,7 @@ import com.codegym.cms.service.impl.InoteServiceImpl;
 import org.springframework.beans.BeansException;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
+import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 
 import org.springframework.beans.BeansException;
@@ -69,6 +70,11 @@ public class ApplicationConfig extends WebMvcConfigurerAdapter implements Applic
         ThymeleafViewResolver viewResolver = new ThymeleafViewResolver();
         viewResolver.setTemplateEngine(templateEngine());
         return viewResolver;
+    }
+
+    @Override
+    public void addResourceHandlers(ResourceHandlerRegistry registry) {
+        registry.addResourceHandler("/static/**").addResourceLocations("/static/");
     }
 
     private TemplateEngine templateEngine() {

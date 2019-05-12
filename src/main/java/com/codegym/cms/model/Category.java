@@ -1,5 +1,7 @@
 package com.codegym.cms.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import javax.persistence.*;
 import javax.persistence.Table;
 import java.util.List;
@@ -15,6 +17,7 @@ public class Category {
     private String description;
 
     @OneToMany(targetEntity = Note.class)
+    @JsonBackReference
     private List<Note> noteList;
 
     public Category() {
