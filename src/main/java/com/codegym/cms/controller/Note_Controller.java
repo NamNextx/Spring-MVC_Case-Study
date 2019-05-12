@@ -38,7 +38,6 @@ public class Note_Controller {
     @PostMapping("/create-new-note")
     public String createNote(Note note){
         iinoteService.save(note);
-
         return "redirect:/home";
     }
 
