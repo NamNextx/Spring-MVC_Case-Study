@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -23,24 +24,29 @@ public class Note_Controller {
 
 
     @ModelAttribute("categorys")
-    public List<Category> categories()
-    {
-       return iCategoryService.findAll();
+    public List<Category> categories() {
+        return iCategoryService.findAll();
     }
 
     //Create note
     @GetMapping("/create-note")
-    public ModelAndView modelAndView(){
+    public ModelAndView modelAndView() {
         ModelAndView modelAndView = new ModelAndView("/note/create");
-        modelAndView.addObject("note",new Note());
+        modelAndView.addObject("note", new Note());
         return modelAndView;
     }
+
     @PostMapping("/create-new-note")
-    public String createNote(Note note){
+    public String createNote(Note note) {
         iinoteService.save(note);
         return "redirect:/home";
     }
 
-
-
+    @GetMapping("/edit note/{id}")
+    public ModelAndView editNote(@PathVariable Long id) {
+        ModelAndView modelAndView = new ModelAndView("/note/edit_note");
+        Note note = iinoteService.findById(id);
+        modelAndView.addObject("note", note);
+        return modelAndView;
+    }
 }

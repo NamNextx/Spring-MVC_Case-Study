@@ -20,28 +20,31 @@ public class Rest_Controller {
     @Autowired
     private ICategoryService iCategoryService;
 
-    @RequestMapping( value = "/list-note",method = RequestMethod.GET)
-    public ResponseEntity<List<Note>> listAllNote(){
+    @RequestMapping(value = "/list-note", method = RequestMethod.GET)
+    public ResponseEntity<List<Note>> listAllNote() {
         List<Note> noteList = iinoteService.findAll();
-        if (noteList.isEmpty()){
-            return new ResponseEntity<List<Note>>(HttpStatus.NO_CONTENT);
+        boolean flag = false;
+
+        for (Note note : noteList
+        ) {
+            if (note.getCategory() == null || noteList.isEmpty()) {
+                flag = true;
+                break;
+            }
         }
-        return new ResponseEntity<List<Note>>(noteList,HttpStatus.OK);
+        if (!flag) {
+            return new ResponseEntity<List<Note>>(noteList, HttpStatus.OK);
+        } else return new ResponseEntity<List<Note>>(HttpStatus.NO_CONTENT);
+
+
     }
 
     @GetMapping(value = "/getNote", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Note> noteResponseEntity(){
-        long id=3;
+    public ResponseEntity<Note> noteResponseEntity() {
+        long id = 3;
         Note note = iinoteService.findById(id);
-        return new ResponseEntity<Note>(note,HttpStatus.OK);
+        return new ResponseEntity<Note>(note, HttpStatus.OK);
     }
-
-
-
-
-
-
-
 
 
 }

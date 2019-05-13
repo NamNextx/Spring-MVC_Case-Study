@@ -62,4 +62,28 @@ public class CategoryController {
         }
         return null;
     }
+
+    @GetMapping("/edit-category/{id}")
+    public ModelAndView editCategory(@PathVariable Long id){
+        ModelAndView editCategory_ModelAndView = new ModelAndView("/category/edit_category");
+        Category categoryEdit = iCategoryService.findById(id);
+        if (categoryEdit == null) {
+            editCategory_ModelAndView.addObject("error-404");
+            return editCategory_ModelAndView;
+        }else {
+            editCategory_ModelAndView.addObject("category",categoryEdit);
+            return editCategory_ModelAndView;
+        }
+
+    }
+
+    @PostMapping("/category-edit")
+    public String updateCategory(@ModelAttribute Category category){
+       Category category1 =  iCategoryService.findById(category.getId());
+       if (category1 !=null){
+           iCategoryService.save(category);
+           return "redirect:/home";
+       }
+       return null;
+    }
 }
